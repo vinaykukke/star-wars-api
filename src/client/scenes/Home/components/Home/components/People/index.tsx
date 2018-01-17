@@ -17,13 +17,15 @@ class People extends Component<IPeopleProps, any> {
     });
   }
 
-  handleShowInfo = (info: any) => {
-    this.props.setInfo(info);
+  showInfo(name: string) {
+    const original = this.props.people.filter((person) => person.name === name);
+    // Doing this since there is always only one person that exactly matches the name
+    this.props.setInfo(original[0]);
   }
 
   renderButtons(cellProps: any) {
     return <div>
-      <S.SaveButton onClick={() => this.handleShowInfo(cellProps.original)}>Show Details</S.SaveButton>
+      <S.SaveButton onClick={() => this.props.setInfo(cellProps.original)}>Show Details</S.SaveButton>
       <S.SaveButton
         onClick={this.handleSave}
         name={cellProps.original.name}
@@ -67,7 +69,7 @@ class People extends Component<IPeopleProps, any> {
           <img width={350} height={350} src={person.image}/>
           <S.ImageName>{person.name}</S.ImageName>
           <S.ButtonContainer>
-            <S.SaveButton>Show Details</S.SaveButton>
+            <S.SaveButton onClick={() => this.showInfo(person.name)}>Show Details</S.SaveButton>
             <S.SaveButton onClick={() => this.props.remove(person.name)}>Remove</S.SaveButton>
           </S.ButtonContainer>
         </S.PeopleImagesContainer>)}
