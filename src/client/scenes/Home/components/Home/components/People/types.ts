@@ -3,4 +3,5 @@ export interface IPeopleProps {
   setInfo: (info: any) => void;
   people: any[];
   savedPeople: any[];
+  remove: (person: string) => void;
 }

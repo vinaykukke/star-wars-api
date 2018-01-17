@@ -10,6 +10,7 @@ const Container = (props: IContainerProps) => {
       savePeople={props.savePeople}
       savedPeople={props.savedPeople}
       setInfo={props.setInfo}
+      remove={props.remove}
     />
     {props.info && <Information info={props.info}/>}
   </div>;

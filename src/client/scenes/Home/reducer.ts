@@ -3,10 +3,12 @@ import { IInitialState } from './types';
 /**
  * ACTION TYPES
  */
-const SET_PEOPLE = 'esl/src/client/scenes/Home/SET_PEOPLE';
-const SAVE_PEOPLE = 'esl/src/client/scenes/Home/SAVE_PEOPLE';
-const FETCH_PEOPLE = 'esl/src/client/scenes/Home/FETCH_PEOPLE';
-const SET_INFO = 'esl/src/client/scenes/Home/SET_INFO';
+const SET_PEOPLE = 'swapi/src/client/scenes/Home/SET_PEOPLE';
+const SAVE_PEOPLE = 'swapi/src/client/scenes/Home/SAVE_PEOPLE';
+const FETCH_PEOPLE = 'swapi/src/client/scenes/Home/FETCH_PEOPLE';
+const SET_INFO = 'swapi/src/client/scenes/Home/SET_INFO';
+const REMOVE_SAVED = 'swapi/src/client/scenes/Home/REMOVE_SAVED';
+const REMOVE = 'swapi/src/client/scenes/Home/REMOVE';
 
 const initialState: IInitialState = {
   people: [],
@@ -33,6 +35,13 @@ export default function Home(state = initialState, action) {
           ...state.savedPeople,
           action.payload
         ],
+      };
+    }
+
+    case REMOVE_SAVED: {
+      return {
+        ...state,
+        savedPeople: action.payload,
       };
     }
 
@@ -71,6 +80,16 @@ export const setInfo = (info: any) => ({
   payload: info
 });
 
+export const removeSaved = (data: any[]) => ({
+  type: REMOVE_SAVED,
+  payload: data
+});
+
+export const remove = (data: any) => ({
+  type: REMOVE,
+  payload: data
+});
+
 /**
  * SELECTORS
  */
@@ -81,8 +100,9 @@ export const infoSelector = state => state.information;
 /**
  * SAGAS
  */
-import { put, takeLatest } from 'redux-saga/effects';
+import { put, takeLatest, select } from 'redux-saga/effects';
 import axios from 'axios';
+import { IState } from 'Types/globalTypes';
 
 export function* getPeopleSaga() {
   let gotPeople;
@@ -96,9 +116,16 @@ export function* getPeopleSaga() {
   yield gotPeople && put(setPeople(people));
 }
 
+export function* removePeopleSaga(data: any) {
+  const savedPeople = yield select((state: IState) => savedPeopleSelector(state.home));
+  const removablePerson = savedPeople.filter((person: any) => person.name !== data.payload);
+  yield put(removeSaved(removablePerson));
+}
+
 /**
  * LISTENERS
  */
 export function* homeListeners() {
   yield takeLatest(FETCH_PEOPLE, getPeopleSaga);
+  yield takeLatest(REMOVE, removePeopleSaga);
 }

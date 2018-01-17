@@ -47,6 +47,7 @@ class Home extends Component<IHomeProps, any> {
         savedPeople={this.props.savedPeople}
         setInfo={this.props.setInfo}
         info={this.props.info}
+        remove={this.props.remove}
       />
     </S.HomeBackground>
   }

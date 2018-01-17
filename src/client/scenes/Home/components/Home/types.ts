@@ -2,6 +2,7 @@ export interface IHomeProps {
   fetchPeople: () => void;
   savePeople: (people: any) => void;
   setInfo: (info: any) => void;
+  remove: (person: string) => void;
   people: IPerson[];
   savedPeople: any[];
   info: any;

@@ -68,7 +68,7 @@ class People extends Component<IPeopleProps, any> {
           <S.ImageName>{person.name}</S.ImageName>
           <S.ButtonContainer>
             <S.SaveButton>Show Details</S.SaveButton>
-            <S.SaveButton>Remove</S.SaveButton>
+            <S.SaveButton onClick={() => this.props.remove(person.name)}>Remove</S.SaveButton>
           </S.ButtonContainer>
         </S.PeopleImagesContainer>)}
       </S.SavedPeopleContainer>

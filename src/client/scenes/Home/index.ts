@@ -6,7 +6,8 @@ import {
   savePeople,
   savedPeopleSelector,
   setInfo,
-  infoSelector
+  infoSelector,
+  remove,
 } from './reducer';
 import { IState } from 'Types/globalTypes';
 
@@ -20,6 +21,7 @@ const mapDispatchToProps = ({
   fetchPeople,
   savePeople,
   setInfo,
+  remove
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
