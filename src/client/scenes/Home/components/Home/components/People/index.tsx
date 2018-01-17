@@ -66,9 +66,13 @@ class People extends Component<IPeopleProps, any> {
         {this.props.savedPeople.map((person, index) => <S.PeopleImagesContainer key={index}>
           <img width={350} height={350} src={person.image}/>
           <S.ImageName>{person.name}</S.ImageName>
+          <S.ButtonContainer>
+            <S.SaveButton>Show Details</S.SaveButton>
+            <S.SaveButton>Remove</S.SaveButton>
+          </S.ButtonContainer>
         </S.PeopleImagesContainer>)}
       </S.SavedPeopleContainer>
-    </S.PeopleContainer>
+    </S.PeopleContainer>;
   }
 }
 

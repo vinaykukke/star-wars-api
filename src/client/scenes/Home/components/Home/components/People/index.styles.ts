@@ -38,3 +38,8 @@ export const ImageName = styled.div`
 export const PeopleImagesContainer = styled.div`
   display: inline-block;
 `;
+
+export const ButtonContainer = styled.div`
+  text-align: center;
+  margin: 1em 0;
+`;
